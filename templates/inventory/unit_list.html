@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Unit Management
+
+    </title>
+
+    <!-- =====================================================
+                        FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- =====================================================
+                        PAGE STYLE
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+                            RESET
+        ====================================================== */
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+        }
+
+        :root{
+
+            --primary:#2563eb;
+
+            --primary-hover:#1d4ed8;
+
+            --background:#f5f7fb;
+
+            --white:#ffffff;
+
+            --text:#111827;
+
+            --muted:#6b7280;
+
+            --border:#d1d5db;
+
+            --border-light:#e5e7eb;
+
+            --shadow:0 2px 12px rgba(0,0,0,.05);
+
+            --radius:14px;
+
+        }
+
+        body{
+
+            background:var(--background);
+
+            font-family:"Segoe UI",sans-serif;
+
+            color:var(--text);
+
+        }
+
+        a{
+
+            text-decoration:none;
+
+        }
+
+        button{
+
+            cursor:pointer;
+
+            font-family:inherit;
+
+        }
+
+        input{
+
+            font-family:inherit;
+
+        }
+
+        /* =====================================================
+                        MAIN CONTAINER
+        ====================================================== */
+
+        .container{
+
+            width:95%;
+
+            max-width:1500px;
+
+            margin:35px auto;
+
+        }
+
+        /* =====================================================
+                        PAGE HEADER
+        ====================================================== */
+
+        .page-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            gap:20px;
+
+            margin-bottom:30px;
+
+        }
+
+        .page-title h1{
+
+            font-size:32px;
+
+            margin-bottom:6px;
+
+            color:var(--text);
+
+        }
+
+        .page-title p{
+
+            color:var(--muted);
+
+            font-size:15px;
+
+        }
+
+        /* =====================================================
+                        HEADER BUTTONS
+        ====================================================== */
+
+        .header-buttons{
+
+            display:flex;
+
+            gap:12px;
+
+        }
+
+        .btn{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            gap:8px;
+
+            height:44px;
+
+            padding:0 20px;
+
+            border:none;
+
+            border-radius:10px;
+
+            font-size:14px;
+
+            font-weight:600;
+
+            transition:.25s;
+
+        }
+
+        .btn-primary{
+
+            background:var(--primary);
+
+            color:#ffffff;
+
+        }
+
+        .btn-primary:hover{
+
+            background:var(--primary-hover);
+
+        }
+
+        .btn-outline{
+
+            background:#ffffff;
+
+            color:var(--primary);
+
+            border:1px solid var(--primary);
+
+        }
+
+        .btn-outline:hover{
+
+            background:var(--primary);
+
+            color:#ffffff;
+
+        }
+
+        /* =====================================================
+                        SEARCH CARD
+        ====================================================== */
+
+        .search-card{
+
+            background:#ffffff;
+
+            border-radius:14px;
+
+            box-shadow:var(--shadow);
+
+            padding:24px;
+
+            margin-bottom:25px;
+
+        }
+
+        .search-card h3{
+
+            font-size:20px;
+
+            margin-bottom:18px;
+
+        }
+
+        .search-box{
+
+            position:relative;
+
+        }
+
+        .search-box i{
+
+            position:absolute;
+
+            left:15px;
+
+            top:50%;
+
+            transform:translateY(-50%);
+
+            color:#9ca3af;
+
+        }
+
+        .search-box input{
+
+            width:100%;
+
+            height:48px;
+
+            border:1px solid var(--border);
+
+            border-radius:10px;
+
+            padding-left:45px;
+
+            padding-right:15px;
+
+            font-size:14px;
+
+            outline:none;
+
+            transition:.25s;
+
+        }
+
+        .search-box input:focus{
+
+            border-color:var(--primary);
+
+            box-shadow:0 0 0 3px rgba(37,99,235,.10);
+
+        }
+
+        /* =====================================================
+                        TABLE CARD
+        ====================================================== */
+
+        .table-card{
+
+            background:#ffffff;
+
+            border-radius:14px;
+
+            box-shadow:var(--shadow);
+
+            overflow:hidden;
+
+        }
+
+        .table-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:22px 25px;
+
+            border-bottom:1px solid var(--border-light);
+
+        }
+
+        .table-header h2{
+
+            font-size:24px;
+
+            margin-bottom:4px;
+
+        }
+
+        .table-header span{
+
+            color:var(--muted);
+
+            font-size:14px;
+
+        }
+                /* =====================================================
+                        TABLE
+        ====================================================== */
+
+        .table-responsive{
+
+            overflow-x:auto;
+
+        }
+
+        .unit-table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+        }
+
+        .unit-table thead{
+
+            background:#f8fafc;
+
+        }
+
+        .unit-table th{
+
+            padding:18px;
+
+            text-align:left;
+
+            font-size:14px;
+
+            border-bottom:1px solid #e5e7eb;
+
+        }
+
+        .unit-table td{
+
+            padding:18px;
+
+            border-bottom:1px solid #eef2f7;
+
+            vertical-align:middle;
+
+        }
+
+        .unit-table tbody tr:hover{
+
+            background:#fafbff;
+
+        }
+
+        /* =====================================================
+                        STATUS
+        ====================================================== */
+
+        .status{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            min-width:80px;
+
+            height:30px;
+
+            border-radius:20px;
+
+            font-size:12px;
+
+            font-weight:600;
+
+        }
+
+        .status.active{
+
+            background:#dcfce7;
+
+            color:#166534;
+
+        }
+
+        .status.inactive{
+
+            background:#fee2e2;
+
+            color:#991b1b;
+
+        }
+
+        /* =====================================================
+                        ACTION BUTTONS
+        ====================================================== */
+
+        .action-buttons{
+
+            display:flex;
+
+            gap:10px;
+
+        }
+
+        .action-btn{
+
+            width:36px;
+
+            height:36px;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            border-radius:8px;
+
+            color:#ffffff;
+
+            transition:.25s;
+
+        }
+
+        .edit-btn{
+
+            background:#f59e0b;
+
+        }
+
+        .edit-btn:hover{
+
+            background:#d97706;
+
+        }
+
+        .delete-btn{
+
+            background:#dc2626;
+
+        }
+
+        .delete-btn:hover{
+
+            background:#b91c1c;
+
+        }
+
+        /* =====================================================
+                        EMPTY STATE
+        ====================================================== */
+
+        .empty-state{
+
+            padding:80px 30px;
+
+            text-align:center;
+
+        }
+
+        .empty-icon{
+
+            width:90px;
+
+            height:90px;
+
+            margin:auto;
+
+            border-radius:50%;
+
+            background:#eef2f7;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            margin-bottom:25px;
+
+        }
+
+        .empty-icon i{
+
+            font-size:40px;
+
+            color:#94a3b8;
+
+        }
+
+        .empty-state h2{
+
+            margin-bottom:10px;
+
+        }
+
+        .empty-state p{
+
+            color:#6b7280;
+
+            margin-bottom:30px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+                        PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+
+                Units
+
+            </h1>
+
+            <p>
+
+                Manage all inventory units.
+
+            </p>
+
+        </div>
+
+        <div class="header-buttons">
+
+            <a
+
+                href="{% url 'inventory:unit_create' %}"
+
+                class="btn btn-primary"
+
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Unit
+
+            </a>
+
+            <a
+
+                href="{% url 'inventory:dashboard' %}"
+
+                class="btn btn-outline"
+
+            >
+
+                <i class="fa-solid fa-house"></i>
+
+                Inventory
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+                        SEARCH SECTION
+    ====================================================== -->
+
+    <div class="search-card">
+
+        <h3>
+
+            Search Units
+
+        </h3>
+
+        <form method="GET">
+
+    <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+               <input
+
+    type="text"
+
+    id="unitSearch"
+
+    name="search"
+
+    value="{{ search }}"
+
+    placeholder="Search Unit by Name..."
+
+>
+
+            </div>
+
+        </form>
+
+    </div>
+        <!-- =====================================================
+                        UNIT TABLE
+    ====================================================== -->
+
+    <div class="table-card">
+
+        <div class="table-header">
+
+            <div>
+
+                <h2>
+
+                    Unit List
+
+                </h2>
+
+                <span>
+
+                    Total Units :
+                    {{ units|length }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+        {% if units %}
+
+        <div class="table-responsive">
+
+            <table class="unit-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Unit Name</th>
+
+                        <th>Short Name</th>
+
+                        <th>Description</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for unit in units %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ unit.id }}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{ unit.name }}
+
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            {{ unit.short_name }}
+
+                        </td>
+
+                        <td>
+
+                            {{ unit.description }}
+
+                        </td>
+
+                        <td>
+
+                           {% if unit.is_active %}
+
+<span class="status active">
+
+    Active
+
+</span>
+
+{% else %}
+
+<span class="status inactive">
+
+    Inactive
+
+</span>
+
+{% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <a
+
+    href="{% url 'inventory:unit_update' unit.id %}"
+
+    class="action-btn edit-btn"
+
+>
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </a>
+
+                                <form
+
+    method="POST"
+
+    action="{% url 'inventory:unit_delete' unit.id %}"
+
+    class="delete-form"
+
+>
+
+    {% csrf_token %}
+
+    <button
+
+        type="submit"
+
+        class="action-btn delete-btn"
+
+    >
+
+        <i class="fa-solid fa-trash"></i>
+
+    </button>
+
+</form>
+
+                                  
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <!-- =====================================================
+                        EMPTY STATE
+        ====================================================== -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-ruler-combined"></i>
+
+            </div>
+
+            <h2>
+
+                No Units Found
+
+            </h2>
+
+            <p>
+
+                Start by creating your first unit.
+
+            </p>
+
+            <a
+
+                href="{% url 'inventory:unit_create' %}"
+
+                class="btn btn-primary"
+
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Unit
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+    </div>
+
+<script>
+
+document.querySelectorAll(".delete-form").forEach(function(form){
+
+    form.addEventListener("submit",function(e){
+
+        if(!confirm("Are you sure you want to delete this unit?")){
+
+            e.preventDefault();
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>
+    

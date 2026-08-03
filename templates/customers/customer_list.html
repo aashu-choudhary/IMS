@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- =====================================================
+                        META DATA
+    ====================================================== -->
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Customer List</title>
+
+    <!-- =====================================================
+                    FONT AWESOME
+    ====================================================== -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <!-- =====================================================
+                        PAGE STYLE
+    ====================================================== -->
+
+    <style>
+            /* =====================================================
+                                  RESET
+              ====================================================== */
+
+            * {
+              margin: 0;
+
+              padding: 0;
+
+              box-sizing: border-box;
+            }
+
+            body {
+              font-family: "Segoe UI", sans-serif;
+
+              background: #f5f7fb;
+
+              color: #1f2937;
+            }
+
+            a {
+              text-decoration: none;
+            }
+
+            /* =====================================================
+                                  CONTAINER
+              ====================================================== */
+
+            .container {
+              width: 95%;
+
+              max-width: 1700px;
+
+              margin: 30px auto;
+            }
+
+            /* =====================================================
+                                  PAGE HEADER
+              ====================================================== */
+
+            .page-header {
+              display: flex;
+
+              justify-content: space-between;
+
+              align-items: center;
+
+              flex-wrap: wrap;
+
+              gap: 20px;
+
+              margin-bottom: 30px;
+            }
+
+            .page-title h1 {
+              font-size: 34px;
+
+              margin-bottom: 8px;
+            }
+
+            .page-title p {
+              color: #6b7280;
+
+              font-size: 15px;
+            }
+
+            /* =====================================================
+                              HEADER BUTTONS
+              ====================================================== */
+
+            .header-actions {
+              display: flex;
+
+              gap: 12px;
+
+              flex-wrap: wrap;
+            }
+
+            .btn {
+              display: flex;
+
+              align-items: center;
+
+              justify-content: center;
+
+              gap: 8px;
+
+              padding: 12px 22px;
+
+              border-radius: 10px;
+
+              font-weight: 600;
+
+              transition: 0.3s;
+
+              cursor: pointer;
+            }
+
+            .btn-primary {
+              background: #2563eb;
+
+              color: #ffffff;
+            }
+
+            .btn-primary:hover {
+              background: #1d4ed8;
+            }
+
+            .btn-secondary {
+              background: #ffffff;
+
+              border: 1px solid #2563eb;
+
+              color: #2563eb;
+            }
+
+            .btn-secondary:hover {
+              background: #2563eb;
+
+              color: #ffffff;
+            }
+
+            /* =====================================================
+                              SEARCH CARD
+              ====================================================== */
+
+            .filter-card {
+              background: #ffffff;
+
+              border-radius: 14px;
+
+              padding: 25px;
+
+              margin-bottom: 30px;
+
+              box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            }
+
+            .filter-header {
+              margin-bottom: 20px;
+            }
+
+            .filter-header h2 {
+              font-size: 22px;
+            }
+
+            .filter-grid {
+              display: grid;
+
+              grid-template-columns: 2fr repeat(3, 1fr);
+
+              gap: 20px;
+
+              margin-bottom: 20px;
+            }
+
+            .form-group {
+              display: flex;
+
+              flex-direction: column;
+            }
+
+            .form-group label {
+              font-size: 14px;
+
+              font-weight: 600;
+
+              margin-bottom: 8px;
+
+              color: #374151;
+            }
+
+            .form-group input,
+            .form-group select {
+              height: 48px;
+
+              border: 1px solid #d1d5db;
+
+              border-radius: 10px;
+
+              padding: 0 15px;
+
+              font-size: 14px;
+
+              outline: none;
+            }
+
+            .form-group input:focus,
+            .form-group select:focus {
+              border-color: #2563eb;
+            }
+
+            .filter-buttons {
+              display: flex;
+
+              gap: 12px;
+            }
+            /* =====================================================
+                              CUSTOMER TABLE
+              ====================================================== */
+
+            .table-card {
+              background: #ffffff;
+
+              border-radius: 14px;
+
+              overflow: hidden;
+
+              box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+
+              margin-bottom: 30px;
+            }
+
+            .table-header {
+              display: flex;
+
+              justify-content: space-between;
+
+              align-items: center;
+
+              padding: 20px 25px;
+
+              border-bottom: 1px solid #e5e7eb;
+            }
+
+            .table-header h2 {
+              font-size: 22px;
+            }
+
+            .table-actions {
+              display: flex;
+
+              gap: 10px;
+            }
+
+            .table-responsive {
+              overflow-x: auto;
+            }
+
+            .customer-table {
+              width: 100%;
+
+              border-collapse: collapse;
+
+              min-width: 1100px;
+            }
+
+            .customer-table thead {
+              background: #f8fafc;
+            }
+
+            .customer-table th {
+              padding: 18px;
+
+              text-align: left;
+
+              font-size: 14px;
+
+              font-weight: 600;
+
+              color: #374151;
+
+              border-bottom: 1px solid #e5e7eb;
+            }
+
+            .customer-table td {
+              padding: 18px;
+
+              border-bottom: 1px solid #edf2f7;
+
+              font-size: 14px;
+
+              vertical-align: middle;
+            }
+
+            .customer-table tbody tr {
+              transition: 0.25s;
+            }
+
+            .customer-table tbody tr:hover {
+              background: #f8fbff;
+            }
+
+            /* =====================================================
+                              STATUS BADGES
+              ====================================================== */
+
+            .status {
+              display: inline-flex;
+
+              align-items: center;
+
+              justify-content: center;
+
+              padding: 6px 14px;
+
+              border-radius: 25px;
+
+              font-size: 12px;
+
+              font-weight: 600;
+            }
+
+            .status.active {
+              background: #dcfce7;
+
+              color: #166534;
+            }
+
+            .status.inactive {
+              background: #fee2e2;
+
+              color: #991b1b;
+            }
+
+            /* =====================================================
+                              ACTION BUTTONS
+              ====================================================== */
+
+            .action-buttons {
+              display: flex;
+
+              gap: 8px;
+            }
+
+            .action-btn {
+              width: 38px;
+
+              height: 38px;
+
+              display: flex;
+
+              align-items: center;
+
+              justify-content: center;
+
+              border-radius: 8px;
+
+              color: #ffffff;
+
+              text-decoration: none;
+
+              transition: 0.25s;
+            }
+
+            .action-btn:hover {
+              transform: translateY(-2px);
+            }
+
+            .view-btn {
+              background: #2563eb;
+            }
+
+            .edit-btn {
+              background: #f59e0b;
+            }
+
+            .delete-btn{
+
+          background:#dc2626;
+
+          border:none;
+
+          color:#ffffff;
+
+          cursor:pointer;
+
+      }
+
+      .delete-btn:hover{
+
+          background:#b91c1c;
+
+      }
+
+              transform: translateY(-2px);
+            }
+
+            /* =====================================================
+                              RESPONSIVE
+              ====================================================== */
+
+            @media (max-width: 992px) {
+              .page-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+              }
+
+              .filter-grid {
+                grid-template-columns: 1fr;
+              }
+
+              .header-actions {
+                width: 100%;
+              }
+
+              .btn {
+                flex: 1;
+              }
+            }
+            /* =====================================================
+                          DELETE MODAL
+      ===================================================== */
+
+            .modal {
+              display: none;
+
+              position: fixed;
+
+              inset: 0;
+
+              background: rgba(0, 0, 0, 0.45);
+
+              justify-content: center;
+
+              align-items: center;
+
+              z-index: 999;
+            }
+
+            .modal-content {
+              width: 420px;
+
+              background: #ffffff;
+
+              border-radius: 14px;
+
+              padding: 30px;
+
+              text-align: center;
+            }
+
+            .modal-content h2 {
+              margin-bottom: 15px;
+            }
+
+            .modal-content p {
+              margin-bottom: 15px;
+            }
+
+            .modal-content form {
+              display: flex;
+
+              justify-content: center;
+
+              gap: 15px;
+            }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- =====================================================
+                        PAGE HEADER
+    ====================================================== -->
+
+      <div class="page-header">
+        <div class="page-title">
+          <h1>Customer List</h1>
+
+          <p>Manage all registered customers from one place.</p>
+        </div>
+
+        <div class="header-actions">
+          <a href="{% url 'customers:dashboard' %}" class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Dashboard
+          </a>
+
+          <a
+            href="{% url 'customers:customer_create' %}"
+            class="btn btn-primary"
+          >
+            <i class="fa-solid fa-user-plus"></i>
+
+            Add Customer
+          </a>
+        </div>
+      </div>
+
+      <!-- =====================================================
+                        CUSTOMER TABLE
+    ====================================================== -->
+
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Customer List</h2>
+
+          <div class="table-actions">
+            <button class="btn btn-secondary" type="button">
+              <i class="fa-solid fa-file-export"></i>
+
+              Export (Coming Soon)
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="customer-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+
+                <th>Customer</th>
+
+                <th>Phone</th>
+
+                <th>City</th>
+
+                <th>Outstanding</th>
+
+                <th>Credit Limit</th>
+
+                <th>Status</th>
+
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for customer in customers %}
+
+              <tr>
+                <td>{{ customer.customer_code }}</td>
+
+                <td>{{ customer.name }}</td>
+
+                <td>{{ customer.phone }}</td>
+
+                <td>{{ customer.city }}</td>
+
+                <td>₹ {{ customer.outstanding_balance }}</td>
+
+                <td>₹ {{ customer.credit_limit }}</td>
+
+                <td>
+                  {% if customer.is_active %}
+
+                  <span class="status active"> Active </span>
+
+                  {% else %}
+
+                  <span class="status inactive"> Inactive </span>
+
+                  {% endif %}
+                </td>
+
+                <td>
+                  <div class="action-buttons">
+                    <!-- View -->
+
+                    <a
+                      href="{% url 'customers:customer_view' customer.pk %}"
+                      class="action-btn view-btn"
+                      title="Select Customer to Viewr"
+                    >
+                      <i class="fa-solid fa-eye"></i>
+                    </a>
+
+                    <!-- Edit -->
+
+                    <a
+                      href="{% url 'customers:customer_edit' customer.pk %}"
+                      class="action-btn edit-btn"
+                      title="Edit Customer"
+                    >
+                      <i class="fa-solid fa-pen"></i>
+                    </a>
+
+                    <!-- Delete -->
+
+                    <button
+                      type="button"
+                      class="action-btn delete-btn"
+                      data-id="{{ customer.id }}"
+                      data-name="{{ customer.name }}"
+                      title="Delete Customer"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              {% empty %}
+
+              <tr>
+                <td colspan="8" style="padding: 60px; text-align: center">
+                  <i
+                    class="fa-solid fa-users"
+                    style="font-size: 60px; color: #d1d5db"
+                  ></i>
+
+                  <h3 style="margin-top: 18px">No Customers Found</h3>
+
+                  <p style="margin-top: 8px; color: #6b7280">
+                    Click <strong>Add Customer</strong> to create your first
+                    customer.
+                  </p>
+                </td>
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- =====================================================
+                    PAGE SCRIPT
+====================================================== -->
+
+    <!-- =====================================================
+                    PAGE SCRIPT
+====================================================== -->
+    <!-- =====================================================
+                DELETE MODAL
+====================================================== -->
+
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <h2>Delete Customer</h2>
+
+        <p>
+          Are you sure you want to delete
+
+          <strong id="customerName"></strong>
+
+          ?
+        </p>
+
+        <p>This action cannot be undone.</p>
+
+        <form id="deleteForm" method="POST">
+          {% csrf_token %}
+
+          <button type="button" id="cancelDelete" class="btn btn-warning">
+            Cancel
+          </button>
+
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      const modal = document.getElementById("deleteModal");
+
+      const deleteForm = document.getElementById("deleteForm");
+
+      const customerName = document.getElementById("customerName");
+
+      document.querySelectorAll(".delete-btn").forEach(function (button) {
+        button.addEventListener("click", function () {
+          const id = this.dataset.id;
+
+          const name = this.dataset.name;
+
+          customerName.textContent = name;
+
+          deleteForm.action = "{% url 'customers:customer_delete' 0 %}".replace(
+            "0",
+            id,
+          );
+
+          modal.style.display = "flex";
+        });
+      });
+
+      document
+        .getElementById("cancelDelete")
+        .addEventListener("click", function () {
+          modal.style.display = "none";
+        });
+
+      window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

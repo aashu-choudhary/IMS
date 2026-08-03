@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Category Management
+
+    </title>
+
+    <!-- =====================================================
+                        FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- =====================================================
+                        PAGE STYLE
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+                            RESET
+        ====================================================== */
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+        }
+
+        body{
+
+            background:#f5f7fb;
+
+            font-family:"Segoe UI",sans-serif;
+
+            color:#1f2937;
+
+        }
+
+        a{
+
+            text-decoration:none;
+
+        }
+
+        button{
+
+            cursor:pointer;
+
+            font-family:inherit;
+
+        }
+
+
+
+        /* =====================================================
+                        MAIN CONTAINER
+        ====================================================== */
+
+        .container{
+
+            width:95%;
+
+            max-width:1500px;
+
+            margin:35px auto;
+
+        }
+
+
+
+        /* =====================================================
+                        PAGE HEADER
+        ====================================================== */
+
+        .page-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            gap:20px;
+
+            margin-bottom:30px;
+
+        }
+
+        .page-title h1{
+
+            font-size:32px;
+
+            font-weight:700;
+
+            color:#111827;
+
+            margin-bottom:6px;
+
+        }
+
+        .page-title p{
+
+            color:#6b7280;
+
+            font-size:15px;
+
+        }
+
+
+
+        /* =====================================================
+                        HEADER BUTTONS
+        ====================================================== */
+
+        .header-buttons{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:12px;
+
+        }
+
+        .btn{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            gap:8px;
+
+            height:44px;
+
+            padding:0 20px;
+
+            border-radius:10px;
+
+            border:none;
+
+            font-size:14px;
+
+            font-weight:600;
+
+            transition:.25s;
+
+        }
+
+        .btn-primary{
+
+            background:#2563eb;
+
+            color:#ffffff;
+
+        }
+
+        .btn-primary:hover{
+
+            background:#1d4ed8;
+
+        }
+
+        .btn-outline{
+
+            background:#ffffff;
+
+            color:#2563eb;
+
+            border:1px solid #2563eb;
+
+        }
+
+        .btn-outline:hover{
+
+            background:#2563eb;
+
+            color:#ffffff;
+
+        }
+
+
+
+        /* =====================================================
+                        SEARCH CARD
+        ====================================================== */
+
+        .search-card{
+
+            margin-bottom:25px;
+
+            background:#ffffff;
+
+            border-radius:14px;
+
+            padding:22px;
+
+            box-shadow:0 2px 10px rgba(0,0,0,.05);
+
+        }
+
+        .search-title{
+
+            font-size:18px;
+
+            font-weight:600;
+
+            color:#111827;
+
+            margin-bottom:15px;
+
+        }
+
+        .search-box{
+
+            position:relative;
+
+        }
+
+        .search-box i{
+
+            position:absolute;
+
+            left:15px;
+
+            top:50%;
+
+            transform:translateY(-50%);
+
+            color:#9ca3af;
+
+        }
+
+        .search-box input{
+
+            width:100%;
+
+            height:46px;
+
+            border:1px solid #d1d5db;
+
+            border-radius:10px;
+
+            padding:0 15px 0 45px;
+
+            outline:none;
+
+            font-size:14px;
+
+            transition:.25s;
+
+        }
+
+        .search-box input:focus{
+
+            border-color:#2563eb;
+
+            box-shadow:0 0 0 3px rgba(37,99,235,.10);
+
+        }
+
+
+
+        /* =====================================================
+                        TABLE CARD
+        ====================================================== */
+
+        .table-card{
+
+            background:#ffffff;
+
+            border-radius:14px;
+
+            overflow:hidden;
+
+            box-shadow:0 2px 10px rgba(0,0,0,.05);
+
+        }
+
+        .table-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:22px 25px;
+
+            border-bottom:1px solid #e5e7eb;
+
+        }
+
+        .table-header h2{
+
+            font-size:22px;
+
+            color:#111827;
+
+            margin-bottom:4px;
+
+        }
+
+        .table-header span{
+
+            color:#6b7280;
+
+            font-size:14px;
+
+        }
+                /* =====================================================
+                        TABLE
+        ====================================================== */
+
+        .table-responsive{
+
+            overflow-x:auto;
+
+        }
+
+        .category-table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+        }
+
+        .category-table thead{
+
+            background:#f8fafc;
+
+        }
+
+        .category-table th{
+
+            padding:18px;
+
+            text-align:left;
+
+            font-size:14px;
+
+            color:#374151;
+
+            border-bottom:1px solid #e5e7eb;
+
+        }
+
+        .category-table td{
+
+            padding:18px;
+
+            border-bottom:1px solid #eef2f7;
+
+            font-size:14px;
+
+        }
+
+        .category-table tbody tr{
+
+            transition:.25s;
+
+        }
+
+        .category-table tbody tr:hover{
+
+            background:#f9fbff;
+
+        }
+
+
+
+        /* =====================================================
+                        STATUS BADGE
+        ====================================================== */
+
+        .status{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            min-width:85px;
+
+            height:30px;
+
+            border-radius:20px;
+
+            font-size:12px;
+
+            font-weight:600;
+
+        }
+
+        .active{
+
+            background:#dcfce7;
+
+            color:#166534;
+
+        }
+
+        .inactive{
+
+            background:#fee2e2;
+
+            color:#991b1b;
+
+        }
+
+
+
+        /* =====================================================
+                        ACTION BUTTONS
+        ====================================================== */
+
+        .action-buttons{
+
+            display:flex;
+
+            gap:10px;
+
+        }
+
+        .action-btn{
+
+            width:36px;
+
+            height:36px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            border-radius:8px;
+
+            color:#ffffff;
+
+            transition:.25s;
+
+        }
+
+        .edit-btn{
+
+            background:#f59e0b;
+
+        }
+
+        .edit-btn:hover{
+
+            background:#d97706;
+
+        }
+
+        .delete-btn{
+
+            background:#dc2626;
+
+        }
+
+        .delete-btn:hover{
+
+            background:#b91c1c;
+
+        }
+
+
+
+        /* =====================================================
+                        EMPTY STATE
+        ====================================================== */
+
+        .empty-state{
+
+            padding:80px 30px;
+
+            text-align:center;
+
+        }
+
+        .empty-icon{
+
+            width:90px;
+
+            height:90px;
+
+            margin:auto;
+
+            border-radius:50%;
+
+            background:#eef2f7;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            margin-bottom:25px;
+
+        }
+
+        .empty-icon i{
+
+            font-size:38px;
+
+            color:#94a3b8;
+
+        }
+
+        .empty-state h2{
+
+            margin-bottom:12px;
+
+            color:#111827;
+
+        }
+
+        .empty-state p{
+
+            color:#6b7280;
+
+            margin-bottom:30px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+                        PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+
+                Categories
+
+            </h1>
+
+            <p>
+
+                Manage all inventory categories.
+
+            </p>
+
+        </div>
+
+        <div class="header-buttons">
+
+            <a
+
+                href="{% url 'inventory:category_create' %}"
+
+                class="btn btn-primary"
+
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Category
+
+            </a>
+
+            <a
+
+                href="{% url 'inventory:dashboard' %}"
+
+                class="btn btn-outline"
+
+            >
+
+                <i class="fa-solid fa-house"></i>
+
+                Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                        SEARCH SECTION
+    ====================================================== -->
+
+    <div class="search-card">
+
+        <div class="search-title">
+
+            Search Categories
+
+        </div>
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+
+                type="text"
+
+                id="categorySearch"
+
+                placeholder="Search category by name..."
+
+            >
+
+        </div>
+
+    </div>
+        <!-- =====================================================
+                        CATEGORY TABLE
+    ====================================================== -->
+
+    <div class="table-card">
+
+        <div class="table-header">
+
+            <div>
+
+                <h2>
+
+                    Category List
+
+                </h2>
+
+                <span>
+
+                    Total Categories :
+                    {{ categories|length }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+
+            {% if categories %}
+
+            <table class="category-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th style="width:8%;">
+
+                            ID
+
+                        </th>
+
+                        <th style="width:25%;">
+
+                            Category Name
+
+                        </th>
+
+                        <th>
+
+                            Description
+
+                        </th>
+
+                        <th style="width:14%;">
+
+                            Status
+
+                        </th>
+
+                        <th style="width:16%;">
+
+                            Actions
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for category in categories %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ category.id }}
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{ category.name }}
+
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            {{ category.description|default:"No Description" }}
+
+                        </td>
+
+                        <td>
+
+                            {% if category.is_active %}
+
+                                <span class="status active">
+
+                                    Active
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="status inactive">
+
+                                    Inactive
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <a
+
+                                    href="{% url 'inventory:category_update' category.id %}"
+
+                                    class="action-btn edit-btn"
+
+                                >
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </a>
+
+                                <form
+
+    method="POST"
+
+    action="{% url 'inventory:category_delete' category.id %}"
+
+    class="delete-form"
+
+>
+
+    {% csrf_token %}
+
+    <button
+
+        type="submit"
+
+        class="action-btn delete-btn"
+
+    >
+
+        <i class="fa-solid fa-trash"></i>
+
+    </button>
+
+</form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <!-- =====================================================
+                            EMPTY STATE
+            ====================================================== -->
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                </div>
+
+                <h2>
+
+                    No Categories Found
+
+                </h2>
+
+                <p>
+
+                    Start by creating your first inventory category.
+
+                </p>
+
+                <a
+
+                    href="{% url 'inventory:category_create' %}"
+
+                    class="btn btn-primary"
+
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Category
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+    </div>
+
+<!-- =====================================================
+                    PAGE SCRIPT
+====================================================== -->
+
+<script>
+
+    const searchInput = document.getElementById("categorySearch");
+
+    if(searchInput){
+
+        searchInput.addEventListener("keyup", function(){
+
+            let value = this.value.toLowerCase();
+
+            let rows = document.querySelectorAll(".category-table tbody tr");
+
+            rows.forEach(function(row){
+
+                let text = row.innerText.toLowerCase();
+
+                if(text.indexOf(value) > -1){
+
+                    row.style.display = "";
+
+                }
+
+                else{
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    }
+
+    /* =====================================================
+                DELETE CONFIRMATION
+===================================================== */
+
+document
+
+.querySelectorAll(".delete-form")
+
+.forEach(function(form){
+
+    form.addEventListener(
+
+        "submit",
+
+        function(event){
+
+            if(
+
+                !confirm(
+
+                    "Are you sure you want to delete this category?"
+
+                )
+
+            ){
+
+                event.preventDefault();
+
+            }
+
+        }
+
+    );
+
+});
+
+</script>
+
+</body>
+
+</html>

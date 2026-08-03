@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Add Category
+
+    </title>
+
+    <!-- =====================================================
+                        FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- =====================================================
+                        PAGE STYLE
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+                            RESET
+        ====================================================== */
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+        }
+
+        :root{
+
+            --primary:#2563eb;
+
+            --primary-hover:#1d4ed8;
+
+            --background:#f5f7fb;
+
+            --white:#ffffff;
+
+            --text:#111827;
+
+            --muted:#6b7280;
+
+            --border:#d1d5db;
+
+            --border-light:#e5e7eb;
+
+            --shadow:0 2px 12px rgba(0,0,0,.05);
+
+            --radius:14px;
+
+        }
+
+        body{
+
+            background:var(--background);
+
+            font-family:"Segoe UI",sans-serif;
+
+            color:var(--text);
+
+        }
+
+        a{
+
+            text-decoration:none;
+
+        }
+
+        button{
+
+            cursor:pointer;
+
+            font-family:inherit;
+
+        }
+
+        input,
+
+        textarea{
+
+            font-family:inherit;
+
+        }
+
+
+
+        /* =====================================================
+                        MAIN CONTAINER
+        ====================================================== */
+
+        .container{
+
+            width:94%;
+
+            max-width:1100px;
+
+            margin:35px auto;
+
+        }
+
+
+
+        /* =====================================================
+                        PAGE HEADER
+        ====================================================== */
+
+        .page-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            gap:20px;
+
+            margin-bottom:30px;
+
+        }
+
+        .page-title h1{
+
+            font-size:32px;
+
+            font-weight:700;
+
+            color:var(--text);
+
+            margin-bottom:6px;
+
+        }
+
+        .page-title p{
+
+            font-size:15px;
+
+            color:var(--muted);
+
+        }
+
+
+
+        /* =====================================================
+                        BUTTONS
+        ====================================================== */
+
+        .btn{
+
+            height:44px;
+
+            padding:0 20px;
+
+            border-radius:10px;
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            gap:8px;
+
+            font-size:14px;
+
+            font-weight:600;
+
+            transition:.25s;
+
+            border:none;
+
+        }
+
+        .btn-primary{
+
+            background:var(--primary);
+
+            color:#ffffff;
+
+        }
+
+        .btn-primary:hover{
+
+            background:var(--primary-hover);
+
+        }
+
+
+
+        /* =====================================================
+                        FORM CARD
+        ====================================================== */
+
+        .form-card{
+
+            background:var(--white);
+
+            border-radius:var(--radius);
+
+            box-shadow:var(--shadow);
+
+            overflow:hidden;
+
+        }
+
+
+
+        /* =====================================================
+                        FORM HEADER
+        ====================================================== */
+
+        .form-header{
+
+            padding:25px 30px;
+
+            border-bottom:1px solid var(--border-light);
+
+        }
+
+        .form-header h2{
+
+            font-size:24px;
+
+            margin-bottom:6px;
+
+        }
+
+        .form-header p{
+
+            color:var(--muted);
+
+            font-size:14px;
+
+        }
+
+
+
+        /* =====================================================
+                        FORM BODY
+        ====================================================== */
+
+        .form-body{
+
+            padding:30px;
+
+        }
+
+        .form-grid{
+
+            display:grid;
+
+            gap:25px;
+
+        }
+
+
+
+        /* =====================================================
+                        FORM GROUP
+        ====================================================== */
+
+        .form-group{
+
+            display:flex;
+
+            flex-direction:column;
+
+        }
+
+        .form-group label{
+
+            font-size:14px;
+
+            font-weight:600;
+
+            color:var(--text);
+
+            margin-bottom:8px;
+
+        }
+
+        .required{
+
+            color:#dc2626;
+
+        }
+
+
+
+        /* =====================================================
+                        INPUTS
+        ====================================================== */
+
+        .form-control{
+
+            width:100%;
+
+            height:48px;
+
+            border:1px solid var(--border);
+
+            border-radius:10px;
+
+            padding:0 15px;
+
+            font-size:14px;
+
+            outline:none;
+
+            transition:.25s;
+
+        }
+
+        .form-control:focus{
+
+            border-color:var(--primary);
+
+            box-shadow:0 0 0 3px rgba(37,99,235,.10);
+
+        }
+
+        textarea.form-control{
+
+            height:140px;
+
+            padding:14px 15px;
+
+            resize:vertical;
+
+        }
+                /* =====================================================
+                        FORM FOOTER
+        ====================================================== */
+
+        .form-footer{
+
+            display:flex;
+
+            justify-content:flex-end;
+
+            align-items:center;
+
+            gap:15px;
+
+            padding:25px 30px;
+
+            border-top:1px solid var(--border-light);
+
+            background:#fafafa;
+
+        }
+
+
+
+        /* =====================================================
+                        SECONDARY BUTTON
+        ====================================================== */
+
+        .btn-secondary{
+
+            background:#ffffff;
+
+            color:#374151;
+
+            border:1px solid var(--border);
+
+        }
+
+        .btn-secondary:hover{
+
+            background:#f3f4f6;
+
+        }
+
+
+
+        /* =====================================================
+                        SAVE BUTTON
+        ====================================================== */
+
+        .btn-success{
+
+            background:var(--primary);
+
+            color:#ffffff;
+
+        }
+
+        .btn-success:hover{
+
+            background:var(--primary-hover);
+
+        }
+
+
+
+        /* =====================================================
+                        RESPONSIVE
+        ====================================================== */
+
+        @media(max-width:768px){
+
+            .container{
+
+                width:96%;
+
+                margin:20px auto;
+
+            }
+
+            .page-header{
+
+                flex-direction:column;
+
+                align-items:flex-start;
+
+            }
+
+            .page-title h1{
+
+                font-size:26px;
+
+            }
+
+            .form-header,
+
+            .form-body,
+
+            .form-footer{
+
+                padding:20px;
+
+            }
+
+            .form-footer{
+
+                flex-direction:column-reverse;
+
+                align-items:stretch;
+
+            }
+
+            .form-footer .btn{
+
+                width:100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+                        PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+
+                Add Category
+
+            </h1>
+
+            <p>
+
+                Create a new inventory category.
+
+            </p>
+
+        </div>
+
+        <a
+
+            href="{% url 'inventory:category_list' %}"
+
+            class="btn btn-primary"
+
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Categories
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                        CATEGORY FORM
+    ====================================================== -->
+
+    <form
+
+        method="POST"
+
+        id="categoryForm"
+
+    >
+
+        {% csrf_token %}
+
+        <div class="form-card">
+
+            <!-- =====================================================
+                            FORM HEADER
+            ====================================================== -->
+
+            <div class="form-header">
+
+                <h2>
+
+                    Category Information
+
+                </h2>
+
+                <p>
+
+                    Fill in the category details below.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =====================================================
+                            FORM BODY
+            ====================================================== -->
+
+            <div class="form-body">
+
+                <div class="form-grid">
+                                  <!-- =====================================================
+                                CATEGORY NAME
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Category Name
+
+                        <span class="required">*</span>
+
+                    </label>
+
+                    <input
+
+                        type="text"
+
+                        name="name"
+
+                        class="form-control"
+
+                        placeholder="Enter Category Name"
+
+                        value="{{ form.name.value|default:'' }}"
+
+                        required
+
+                    >
+
+                    {% if form.name.errors %}
+
+                        <small class="error-text">
+
+                            {{ form.name.errors.0 }}
+
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                DESCRIPTION
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Description
+
+                    </label>
+
+                    <textarea
+
+                        name="description"
+
+                        class="form-control"
+
+                        placeholder="Enter Category Description"
+
+                    >{{ form.description.value|default:'' }}</textarea>
+
+                    {% if form.description.errors %}
+
+                        <small class="error-text">
+
+                            {{ form.description.errors.0 }}
+
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                STATUS
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Status
+
+                    </label>
+
+                    <div class="status-box">
+
+                        <label class="switch">
+
+                            <input
+
+                                type="checkbox"
+
+                                name="is_active"
+
+                                {% if form.is_active.value %}
+
+                                    checked
+
+                                {% endif %}
+
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                        <span class="status-text">
+
+                            Active Category
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+                    <!-- =====================================================
+                            FORM FOOTER
+            ====================================================== -->
+
+            <div class="form-footer">
+
+                <a
+
+                    href="{% url 'inventory:category_list' %}"
+
+                    class="btn btn-secondary"
+
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Cancel
+
+                </a>
+
+                <button
+
+                    type="submit"
+
+                    class="btn btn-success"
+
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Save Category
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- =====================================================
+                    PAGE SCRIPT
+====================================================== -->
+
+<script>
+
+    document.addEventListener(
+
+        "DOMContentLoaded",
+
+        function(){
+
+            const categoryName = document.querySelector(
+
+                'input[name="name"]'
+
+            );
+
+            if(categoryName){
+
+                categoryName.focus();
+
+            }
+
+        }
+
+    );
+
+</script>
+
+</body>
+
+</html>

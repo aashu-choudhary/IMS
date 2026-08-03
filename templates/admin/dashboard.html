@@ -1,0 +1,468 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ===================================
+                PAGE HEADER
+    ==================================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+
+                Dashboard
+
+            </h1>
+
+            <p>
+
+                Welcome back,
+                <strong>
+
+                    {{ request.user.username }}
+
+                </strong>
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================================
+                DASHBOARD CARDS
+    ==================================== -->
+
+    <div class="stats-grid">
+
+        <!-- Products -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+
+                <i class="fa-solid fa-box"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+
+                    Products
+
+                </span>
+
+                <h2>
+
+                    {{ total_products }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Low Stock -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon red">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+
+                    Low Stock
+
+                </span>
+
+                <h2>
+
+                    {{ low_stock_count }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Customers -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+
+                    Customers
+
+                </span>
+
+                <h2>
+
+                    {{ total_customers }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Today's Invoices -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon orange">
+
+                <i class="fa-solid fa-file-invoice"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+
+                    Today's Invoices
+
+                </span>
+
+                <h2>
+
+                    {{ today_invoices }}
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+        <!-- ===================================
+            Dashboard Content
+    ==================================== -->
+
+    <div class="dashboard-grid">
+
+        <!-- ===============================
+                Inventory Overview
+        ================================ -->
+
+ <section class="dashboard-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Inventory Overview
+
+        </h2>
+
+    </div>
+
+  <div class="card-body">
+
+    <div class="overview-list">
+
+        <div class="overview-item">
+
+            <div class="overview-icon blue">
+
+                <i class="fa-solid fa-box"></i>
+
+            </div>
+
+            <div class="overview-info">
+
+                <h4>Total Products</h4>
+
+                <span>{{ total_products }}</span>
+
+            </div>
+
+        </div>
+
+        <div class="overview-item">
+
+            <div class="overview-icon green">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div class="overview-info">
+
+                <h4>Total Customers</h4>
+
+                <span>{{ total_customers }}</span>
+
+            </div>
+
+        </div>
+
+        <div class="overview-item">
+
+            <div class="overview-icon red">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <div class="overview-info">
+
+                <h4>Low Stock Products</h4>
+
+                <span>{{ low_stock_count }}</span>
+
+            </div>
+
+        </div>
+
+        <div class="overview-item">
+
+            <div class="overview-icon orange">
+
+                <i class="fa-solid fa-file-invoice"></i>
+
+            </div>
+
+            <div class="overview-info">
+
+                <h4>Today's Invoices</h4>
+
+                <span>{{ today_invoices }}</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+ <!-- ===================================
+            Recent Activity
+==================================== -->
+
+<section class="dashboard-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Recent Activity
+
+        </h2>
+
+    </div>
+
+    <div class="card-body">
+
+        {% if recent_activities %}
+
+            <div class="activity-list">
+
+                {% for activity in recent_activities %}
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+
+                        <i class="{{ activity.icon }}"></i>
+
+                    </div>
+
+                    <div class="activity-content">
+
+                    <h4>
+
+{{ activity.title }}
+
+</h4>
+
+<p>
+
+{{ activity.description }}
+
+</p>
+
+<small>
+
+By {{ activity.user }}
+
+</small>
+
+<br>
+
+<span>
+
+{{ activity.created_at }}
+
+</span>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <h3>
+
+                    No Recent Activity
+
+                </h3>
+
+                <p>
+
+                    Activities will appear here automatically.
+
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+        <!-- ===================================
+            Low Stock Products
+    ==================================== -->
+
+   <section class="dashboard-card">
+
+    <div class="card-header">
+
+        <h2>
+
+            Low Stock Products
+
+        </h2>
+
+        <a href="{% url 'inventory:stock_list' %}" class="view-all">
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="card-body">
+
+<div class="table-responsive">
+
+<table class="dashboard-table">
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+
+<th>Category</th>
+
+<th>Warehouse</th>
+
+<th>Available</th>
+
+<th>Minimum</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for stock in low_stock_products %}
+
+<tr>
+
+<td>{{ stock.product.name }}</td>
+
+<td>{{ stock.product.category.name }}</td>
+
+<td>{{ stock.warehouse.name }}</td>
+
+<td>{{ stock.available_quantity }}</td>
+
+<td>{{ stock.minimum_stock }}</td>
+
+<td>
+
+<span class="status-badge low">
+
+Low Stock
+
+</span>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="6" style="text-align:center;">
+
+No Low Stock Products
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+    </section>
+
+</div>
+
+{% endblock %}

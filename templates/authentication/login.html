@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>IMS | Login</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'css/login.css' %}">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="login-container">
+
+    <!-- Role Selection -->
+
+    <div class="role-switch">
+
+        <select name="role">
+
+            <option value="admin">
+                Administrator
+            </option>
+
+            <option value="inventory">
+                Inventory Manager
+            </option>
+
+            <option value="staff">
+                Staff
+            </option>
+
+        </select>
+
+    </div>
+
+
+
+    <!-- Logo -->
+
+    <div class="logo">
+
+        <i class="fa-solid fa-boxes-stacked"></i>
+
+        <h1>IMS</h1>
+
+    </div>
+
+
+
+    <!-- Login -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="input-group">
+
+            <i class="fa-solid fa-user"></i>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required>
+
+        </div>
+
+
+
+        <div class="input-group">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required>
+
+            <button
+                type="button"
+                class="toggle-password">
+
+                <i class="fa-solid fa-eye"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <button
+            type="submit"
+            class="login-btn">
+
+            Login
+
+        </button>
+
+    </form>
+
+</div>
+
+<script src="{% static 'js/login.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,266 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        {% block title %}
+            IMS
+        {% endblock %}
+
+    </title>
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Dashboard CSS -->
+
+    <link rel="stylesheet"
+          href="{% static 'css/dashboard.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- =====================================
+                    SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- Logo -->
+
+        <div class="sidebar-logo">
+
+            <h2>IMS</h2>
+
+        </div>
+
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-menu">
+
+            <a href="{% url 'dashboard:dashboard' %}" class="active">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+            <a href="{% url 'inventory:dashboard' %}">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>Inventory</span>
+
+            </a>
+
+         
+
+            <a href="#">
+
+                <i class="fa-solid fa-truck"></i>
+
+                <span>Suppliers</span>
+
+            </a>
+
+           <!-- =====================================
+                CUSTOMERS
+===================================== -->
+
+<a href="{% url 'customers:dashboard' %}">
+
+    <i class="fa-solid fa-users"></i>
+
+    <span>
+
+        Customers
+
+    </span>
+
+</a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-file-invoice"></i>
+
+                <span>Invoices</span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-user-tie"></i>
+
+                <span>Employees</span>
+
+            </a>
+
+            <a href="{% url 'dashboard:reports' %}">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>Reports</span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+        <!-- =====================================
+                MAIN CONTENT
+    ====================================== -->
+
+    <div class="main-content">
+
+        <!-- ===============================
+                    TOP NAVBAR
+        ================================ -->
+
+        <header class="top-navbar">
+
+            <!-- Left -->
+
+            <div class="navbar-left">
+
+                <button
+                    id="sidebarToggle"
+                    class="toggle-btn">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        placeholder="Search...">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Right -->
+
+            <div class="navbar-right">
+
+                <!-- Notification -->
+
+                <button class="icon-btn">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                </button>
+
+
+
+                <!-- User -->
+
+                <div class="user-profile">
+
+                    <div class="user-info">
+
+                        <span class="user-name">
+
+                            {{ request.user.username }}
+
+                        </span>
+
+                        <small>
+
+                            Administrator
+
+                        </small>
+
+                    </div>
+
+                    <div class="user-avatar">
+
+                        {{ request.user.username|first|upper }}
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Logout -->
+
+                <a
+                    href="{% url 'logout' %}"
+                    class="logout-btn">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>
+
+                        Logout
+
+                    </span>
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ===============================
+                PAGE CONTENT
+        ================================ -->
+
+        <main class="page-content">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+</div>
+
+
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+
+</html>

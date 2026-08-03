@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Add Product
+
+    </title>
+
+    <!-- =====================================================
+                        FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- =====================================================
+                        PAGE STYLE
+    ====================================================== -->
+
+    <style>
+
+        /* =====================================================
+                            RESET
+        ====================================================== */
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+        }
+
+        body{
+
+            background:#f5f7fb;
+
+            font-family:"Segoe UI",sans-serif;
+
+            color:#1f2937;
+
+        }
+
+
+
+        /* =====================================================
+                        MAIN CONTAINER
+        ====================================================== */
+
+        .container{
+
+            width:94%;
+
+            max-width:1200px;
+
+            margin:35px auto;
+
+        }
+
+
+
+        /* =====================================================
+                        PAGE HEADER
+        ====================================================== */
+
+        .page-header{
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:flex-start;
+
+            margin-bottom:25px;
+
+            gap:20px;
+
+        }
+
+
+
+        .page-title h1{
+
+            font-size:30px;
+
+            font-weight:700;
+
+            color:#111827;
+
+            margin-bottom:6px;
+
+        }
+
+
+
+        .page-title p{
+
+            font-size:14px;
+
+            color:#6b7280;
+
+        }
+
+
+
+        /* =====================================================
+                    PRODUCTS BUTTON
+        ====================================================== */
+
+        .btn-products{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            gap:8px;
+
+            height:44px;
+
+            padding:0 20px;
+
+            background:#2563eb;
+
+            color:#ffffff;
+
+            text-decoration:none;
+
+            border-radius:10px;
+
+            font-size:14px;
+
+            font-weight:600;
+
+            transition:.25s ease;
+
+            box-shadow:0 4px 12px rgba(37,99,235,.20);
+
+        }
+
+        .btn-products:hover{
+
+            background:#1d4ed8;
+
+            transform:translateY(-2px);
+
+            box-shadow:0 8px 18px rgba(37,99,235,.30);
+
+        }
+
+
+
+        /* =====================================================
+                        FORM CARD
+        ====================================================== */
+
+        .form-card{
+
+            background:#ffffff;
+
+            border-radius:14px;
+
+            padding:30px;
+
+            box-shadow:0 2px 12px rgba(0,0,0,.05);
+
+        }
+
+
+
+        /* =====================================================
+                        FORM HEADER
+        ====================================================== */
+
+        .form-header{
+
+            margin-bottom:30px;
+
+            padding-bottom:20px;
+
+            border-bottom:1px solid #e5e7eb;
+
+        }
+
+        .form-header h2{
+
+            font-size:22px;
+
+            color:#111827;
+
+            margin-bottom:5px;
+
+        }
+
+        .form-header p{
+
+            color:#6b7280;
+
+            font-size:14px;
+
+        }
+
+
+
+        /* =====================================================
+                        FORM GRID
+        ====================================================== */
+
+        .form-grid{
+
+            display:grid;
+
+            grid-template-columns:repeat(2,1fr);
+
+            gap:22px;
+
+        }
+
+
+
+        .form-group{
+
+            display:flex;
+
+            flex-direction:column;
+
+        }
+
+
+
+        .form-group label{
+
+            margin-bottom:8px;
+
+            font-size:14px;
+
+            font-weight:600;
+
+            color:#374151;
+
+        }
+
+
+
+        .form-group input,
+
+        .form-group select,
+
+        .form-group textarea{
+
+            width:100%;
+
+            height:46px;
+
+            padding:0 14px;
+
+            border:1px solid #d1d5db;
+
+            border-radius:10px;
+
+            outline:none;
+
+            font-size:14px;
+
+            transition:.2s;
+
+        }
+
+
+
+        .form-group textarea{
+
+            height:120px;
+
+            resize:vertical;
+
+            padding-top:12px;
+
+        }
+
+
+
+        .form-group input:focus,
+
+        .form-group select:focus,
+
+        .form-group textarea:focus{
+
+            border-color:#2563eb;
+
+            box-shadow:0 0 0 3px rgba(37,99,235,.10);
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+                        PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+
+    {{ title }}
+
+</h1>
+
+            <p>
+
+              {% if title == "Edit Product" %}
+
+Update product information.
+
+{% else %}
+
+Create a new product for your inventory.
+
+{% endif %}
+
+            </p>
+
+        </div>
+
+        <a
+
+            href="{% url 'inventory:product_list' %}"
+
+            class="btn-products"
+
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Products
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                        PRODUCT FORM
+    ====================================================== -->
+
+    <form
+
+        id="productForm"
+
+        method="post"
+
+        enctype="multipart/form-data"
+
+    >
+
+        {% csrf_token %}
+
+        <div class="form-card">
+
+            <!-- =====================================================
+                            FORM HEADER
+            ====================================================== -->
+
+            <div class="form-header">
+
+                <h2>
+
+                    Product Information
+
+                </h2>
+
+                <p>
+
+                    Fill in the product details below.
+
+                </p>
+
+            </div>
+
+            <div class="form-grid">
+                              <!-- =====================================================
+                                PRODUCT SKU
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Product SKU <span style="color:#ef4444;">*</span>
+
+                    </label>
+
+                   {{ form.sku }}
+
+{% if form.sku.errors %}
+
+<div class="text-danger">
+
+    {{ form.sku.errors }}
+
+</div>
+
+{% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                PRODUCT NAME
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Product Name <span style="color:#ef4444;">*</span>
+
+                    </label>
+
+                   {{ form.name }}
+
+{% if form.name.errors %}
+
+<div class="text-danger">
+
+    {{ form.name.errors }}
+
+</div>
+
+{% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                CATEGORY
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Category
+
+                    </label>
+
+                  {{ form.category }}
+
+{% if form.category.errors %}
+
+<div class="text-danger">
+
+    {{ form.category.errors }}
+
+</div>
+
+{% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                BRAND
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Brand
+
+                    </label>
+
+                    {{ form.brand }}
+
+{% if form.brand.errors %}
+
+<div class="text-danger">
+
+    {{ form.brand.errors }}
+
+</div>
+
+{% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                UNIT
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Unit
+
+                    </label>
+
+                    {{ form.unit }}
+
+{% if form.unit.errors %}
+
+<div class="text-danger">
+
+    {{ form.unit.errors }}
+
+</div>
+
+{% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                            PRODUCT IMAGE
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Product Image
+
+                    </label>
+
+                  {{ form.image }}
+
+{% if form.image.errors %}
+
+<div class="text-danger">
+
+    {{ form.image.errors }}
+
+</div>
+
+{% endif %}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                            PURCHASE PRICE
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Purchase Price
+
+                    </label>
+
+                    {{ form.purchase_price }}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                            SELLING PRICE
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Selling Price
+
+                    </label>
+
+                    {{ form.selling_price }}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                BARCODE
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Barcode
+
+                    </label>
+
+                    {{ form.barcode }}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                                STATUS
+                ====================================================== -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Status
+
+                    </label>
+
+                    {{ form.is_active }}
+
+                </div>
+
+
+
+                <!-- =====================================================
+                            PRODUCT DESCRIPTION
+                ====================================================== -->
+
+                <div
+
+                    class="form-group"
+
+                    style="grid-column:1 / -1;"
+
+                >
+
+                    <label>
+
+                        Product Description
+
+                    </label>
+
+                   {{ form.description }}
+
+{% if form.description.errors %}
+
+<div class="text-danger">
+
+    {{ form.description.errors }}
+
+</div>
+
+{% endif %}
+
+                </div>
+                            </div>
+
+            <!-- =====================================================
+                            FORM ACTIONS
+            ====================================================== -->
+
+            <div class="form-actions">
+
+                <a
+
+                    href="{% url 'inventory:product_list' %}"
+
+                    class="btn btn-cancel"
+
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    Cancel
+
+                </a>
+
+                <button
+
+                    type="submit"
+
+                    class="btn btn-save"
+
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    {% if title == "Edit Product" %}
+
+Update Product
+
+{% else %}
+
+Save Product
+
+{% endif %}
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- =====================================================
+                    PAGE STYLE (CONTINUED)
+====================================================== -->
+
+<style>
+
+    /* =====================================================
+                        BUTTONS
+    ====================================================== */
+
+    .btn{
+
+        display:inline-flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:8px;
+
+        height:44px;
+
+        padding:0 20px;
+
+        border:none;
+
+        border-radius:10px;
+
+        text-decoration:none;
+
+        font-size:14px;
+
+        font-weight:600;
+
+        cursor:pointer;
+
+        transition:.25s ease;
+
+    }
+
+
+
+    .btn-save{
+
+        background:#2563eb;
+
+        color:#ffffff;
+
+    }
+
+    .btn-save:hover{
+
+        background:#1d4ed8;
+
+        transform:translateY(-2px);
+
+        box-shadow:0 8px 18px rgba(37,99,235,.25);
+
+    }
+
+
+
+    .btn-cancel{
+
+        background:#ffffff;
+
+        color:#374151;
+
+        border:1px solid #d1d5db;
+
+    }
+
+    .btn-cancel:hover{
+
+        background:#f3f4f6;
+
+    }
+
+
+
+    /* =====================================================
+                        FORM ACTIONS
+    ====================================================== */
+
+    .form-actions{
+
+        display:flex;
+
+        justify-content:flex-end;
+
+        gap:15px;
+
+        margin-top:35px;
+
+        padding-top:25px;
+
+        border-top:1px solid #e5e7eb;
+
+    }
+
+
+
+    /* =====================================================
+                        RESPONSIVE
+    ====================================================== */
+
+    @media(max-width:992px){
+
+        .page-header{
+
+            flex-direction:column;
+
+            align-items:flex-start;
+
+        }
+
+        .page-header .btn-products{
+
+            width:100%;
+
+            justify-content:center;
+
+        }
+
+        .form-grid{
+
+            grid-template-columns:1fr;
+
+        }
+
+        .form-actions{
+
+            flex-direction:column-reverse;
+
+            align-items:stretch;
+
+        }
+
+        .form-actions .btn{
+
+            width:100%;
+
+        }
+
+    }
+
+</style>
+
+<!-- =====================================================
+                    PAGE SCRIPT
+====================================================== -->
+
+<script>
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function(){
+
+        console.log(
+
+            "Add Product Page Loaded"
+
+        );
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>

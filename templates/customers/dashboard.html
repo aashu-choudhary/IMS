@@ -1,0 +1,399 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Customer Dashboard
+
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'customers/css/dashboard.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- =====================================================
+                    PAGE HEADER
+====================================================== -->
+
+<div class="page-header">
+
+    <div class="page-title">
+
+        <h1>
+
+            Customer Management
+
+        </h1>
+
+        <p>
+
+            Manage customers, balances, credit limits and customer records.
+
+        </p>
+
+    </div>
+
+    <div class="header-actions">
+
+        <a
+
+            href="{% url 'customers:customer_create' %}"
+
+            class="primary-btn"
+
+        >
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Customer
+
+        </a>
+
+        <a
+
+            href="{% url 'dashboard:dashboard' %}"
+
+            class="dashboard-btn"
+
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+    <!-- =====================================================
+                        DASHBOARD CARDS
+    ====================================================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h5>Total Customers</h5>
+
+                <h2>{{ total_customers|default:"0" }}</h2>
+
+                <span>Registered Customers</span>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+
+                <i class="fa-solid fa-user-check"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h5>Active Customers</h5>
+
+                <h2>{{ active_customers|default:"0" }}</h2>
+
+                <span>Currently Active</span>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon orange">
+
+                <i class="fa-solid fa-money-bill-wave"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h5>Outstanding</h5>
+
+                <h2>
+
+                    ₹ {{ total_outstanding|default:"0" }}
+
+                </h2>
+
+                <span>Pending Collections</span>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+
+                <i class="fa-solid fa-credit-card"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h5>Credit Limit</h5>
+
+                <h2>
+
+                    ₹ {{ total_credit|default:"0" }}
+
+                </h2>
+
+                <span>Total Credit</span>
+
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon red">
+
+                <i class="fa-solid fa-file-invoice"></i>
+
+            </div>
+
+            <div class="stat-content">
+
+                <h5>Total Orders</h5>
+
+                <h2>{{ total_orders|default:"0" }}</h2>
+
+                <span>Sales Orders</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+                        SEARCH & FILTERS
+    ====================================================== -->
+
+    <div class="filter-card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-filter"></i>
+
+            Search & Filters
+
+        </div>
+
+        <form
+            method="GET"
+            id="filterForm"
+        >
+
+            <div class="filter-grid">
+
+                <input
+
+                    type="text"
+
+                    name="search"
+
+                    value="{{ search }}"
+
+                    placeholder="Search customer..."
+
+                >
+
+                <select name="customer_type">
+
+                    <option value="">
+
+                        Customer Type
+
+                    </option>
+
+                </select>
+
+                <select name="city">
+
+                    <option value="">
+
+                        City
+
+                    </option>
+
+                </select>
+
+                <select name="status">
+
+                    <option value="">
+
+                        Status
+
+                    </option>
+
+                </select>
+
+                <select name="outstanding">
+
+                    <option value="">
+
+                        Outstanding
+
+                    </option>
+
+                </select>
+
+            </div>
+
+        </form>
+
+    </div>
+
+   <!-- =====================================================
+                CUSTOMER APPLICATIONS
+====================================================== -->
+
+<section class="application-section">
+
+    <div class="table-header">
+
+        <h2>
+
+            Customer Applications
+
+        </h2>
+
+    </div>
+
+  <div class="application-grid">
+
+    <!-- ==========================================
+                    CUSTOMER LIST
+    =========================================== -->
+
+    <a
+        href="{% url 'customers:customer_list' %}"
+        class="application-card"
+    >
+
+        <div class="application-icon">
+
+            <i class="fa-solid fa-address-book"></i>
+
+        </div>
+
+        <h3>
+
+            Customer List
+
+        </h3>
+
+        <p>
+
+            Open Module
+
+        </p>
+
+    </a>
+
+    <!-- ==========================================
+                    ADD CUSTOMER
+    =========================================== -->
+
+    <a
+        href="{% url 'customers:customer_create' %}"
+        class="application-card"
+    >
+
+        <div class="application-icon">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+        </div>
+
+        <h3>
+
+            Add Customer
+
+        </h3>
+
+        <p>
+
+            Create New
+
+        </p>
+
+    </a>
+
+    <!-- ==========================================
+                    CUSTOMER REPORTS
+    =========================================== -->
+
+    <a
+        href="#"
+        class="application-card"
+    >
+
+        <div class="application-icon">
+
+            <i class="fa-solid fa-chart-column"></i>
+
+        </div>
+
+        <h3>
+
+            Customer Reports
+
+        </h3>
+
+        <p>
+
+            View Reports
+
+        </p>
+
+    </a>
+
+</div>
+
+</section>
+
+<script src="{% static 'customers/js/dashboard.js' %}"></script>
+
+</body>
+
+</html>
