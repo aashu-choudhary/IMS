@@ -1,0 +1,373 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Supplier Dashboard
+{% endblock %}
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'suppliers/css/supplier.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="supplier-dashboard">
+
+    <!-- =====================================
+                PAGE HEADER
+    ====================================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+
+                Supplier Dashboard
+
+            </h1>
+
+            <p>
+
+                Manage suppliers, purchases and supplier information.
+
+            </p>
+
+        </div>
+
+        <div class="header-actions">
+
+         
+
+            <a
+
+                href="{% url 'suppliers:supplier_create' %}"
+
+                class="btn btn-primary"
+
+            >
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Add Supplier
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+<!-- =====================================
+            STATISTICS
+====================================== -->
+
+<div class="stats-grid">
+
+    <!-- Total Suppliers -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon blue">
+
+            <i class="fa-solid fa-truck"></i>
+
+        </div>
+
+        <div class="stat-content">
+
+            <span>
+
+                Total Suppliers
+
+            </span>
+
+            <h2>
+
+                {{ total_suppliers|default:"0" }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Active Suppliers -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon green">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+        <div class="stat-content">
+
+            <span>
+
+                Active Suppliers
+
+            </span>
+
+            <h2>
+
+                {{ active_suppliers|default:"0" }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Inactive Suppliers -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon red">
+
+            <i class="fa-solid fa-circle-xmark"></i>
+
+        </div>
+
+        <div class="stat-content">
+
+            <span>
+
+                Inactive Suppliers
+
+            </span>
+
+            <h2>
+
+                {{ inactive_suppliers|default:"0" }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Total Purchases -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon orange">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+        </div>
+
+        <div class="stat-content">
+
+            <span>
+
+                Total Purchases
+
+            </span>
+
+            <h2>
+
+                {{ total_purchases|default:"0" }}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================
+            SUPPLIER APPLICATIONS
+====================================== -->
+
+<div class="applications-section">
+
+    <div class="section-header">
+
+        <h2>
+
+            Supplier Applications
+
+        </h2>
+
+        <p>
+
+            Quick access to supplier management tools.
+
+        </p>
+
+    </div>
+
+    <div class="application-grid">
+
+        <!-- =====================================
+                    SUPPLIER LIST
+        ====================================== -->
+
+        <a
+
+          href="{% url 'suppliers:supplier_list' %}"
+
+            class="application-card"
+
+        >
+
+            <div class="application-icon blue">
+
+                <i class="fa-solid fa-list"></i>
+
+            </div>
+
+            <h3>
+
+                Supplier List
+
+            </h3>
+
+            <p>
+
+                View, search and manage suppliers.
+
+            </p>
+
+        </a>
+
+
+
+        <!-- =====================================
+                    ADD SUPPLIER
+        ====================================== -->
+
+        <a
+
+          
+
+            class="application-card"
+   href="{% url 'suppliers:supplier_create' %}"
+        >
+
+            <div class="application-icon green">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+            </div>
+
+            <h3>
+
+                Add Supplier
+
+            </h3>
+
+            <p>
+
+                Register a new supplier.
+
+            </p>
+
+        </a>
+
+
+
+        <!-- =====================================
+                    REPORTS
+        ====================================== -->
+
+        <a
+
+            href="#"
+
+            class="application-card"
+
+        >
+
+            <div class="application-icon orange">
+
+                <i class="fa-solid fa-chart-column"></i>
+
+            </div>
+
+            <h3>
+
+                Supplier Reports
+
+            </h3>
+
+            <p>
+
+                View supplier analytics and reports.
+
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+  <!-- =====================================
+            RECENT ACTIVITY
+====================================== -->
+
+<div class="activity-section">
+
+    <div class="section-header">
+
+        <h2>
+
+            Recent Supplier Activity
+
+        </h2>
+
+    </div>
+
+    <div class="activity-card">
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <h3>
+
+                No Recent Activity
+
+            </h3>
+
+            <p>
+
+                Supplier activities will appear here automatically.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'suppliers/js/supplier.js' %}"></script>
+
+{% endblock %}

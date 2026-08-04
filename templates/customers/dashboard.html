@@ -1,38 +1,23 @@
+{% extends "base/base.html" %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
+{% block title %}
+Customer Dashboard
+{% endblock %}
 
-    <meta charset="UTF-8">
+{% block extra_css %}
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<link
+    rel="stylesheet"
+    href="{% static 'customers/css/dashboard.css' %}"
+>
 
-    <title>
+{% endblock %}
 
-        Customer Dashboard
+{% block content %}
 
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="{% static 'customers/css/dashboard.css' %}"
-    >
-
-</head>
-
-<body>
-
-<div class="container">
-
+<div class="customer-dashboard">
 <!-- =====================================================
                     PAGE HEADER
 ====================================================== -->
@@ -68,20 +53,6 @@
             <i class="fa-solid fa-plus"></i>
 
             Add Customer
-
-        </a>
-
-        <a
-
-            href="{% url 'dashboard:dashboard' %}"
-
-            class="dashboard-btn"
-
-        >
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-            Dashboard
 
         </a>
 
@@ -392,8 +363,14 @@
 
 </section>
 
-<script src="{% static 'customers/js/dashboard.js' %}"></script>
+</div>
 
-</body>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+
+<script
+    src="{% static 'customers/js/dashboard.js' %}"
+></script>
+
+{% endblock %}

@@ -1,0 +1,777 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =====================================================
+                        META
+    ====================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+
+        Add Supplier
+
+    </title>
+
+    <!-- =====================================================
+                    FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <style>
+
+    /* =====================================================
+                        RESET
+    ====================================================== */
+
+    *{
+
+        margin:0;
+
+        padding:0;
+
+        box-sizing:border-box;
+
+        font-family:"Segoe UI",sans-serif;
+
+    }
+body{
+
+    background:linear-gradient(
+
+        135deg,
+
+        #f8fafc,
+
+        #eef4ff
+
+    );
+
+    padding:50px;
+
+}
+
+    a{
+
+        text-decoration:none;
+
+    }
+
+    /* =====================================================
+                    PAGE HEADER
+    ====================================================== */
+
+    .page-header{
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        margin-bottom:35px;
+
+        flex-wrap:wrap;
+
+        gap:20px;
+
+    }
+
+  .page-title h1{
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+.page-title p{
+
+    font-size:15px;
+
+    color:#6b7280;
+
+}
+
+    .page-actions{
+
+        display:flex;
+
+        gap:15px;
+
+    }
+
+    /* =====================================================
+                        BUTTONS
+    ====================================================== */
+
+ .btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    min-width:170px;
+
+    height:48px;
+
+    padding:0 25px;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#fff;
+
+    transition:.25s;
+
+}
+
+    .back-btn{
+
+        background:#2563eb;
+
+    }
+
+    .back-btn:hover{
+
+        background:#1d4ed8;
+
+    }
+
+    .save-btn{
+
+        background:#16a34a;
+
+        border:none;
+
+        cursor:pointer;
+
+    }
+
+    .save-btn:hover{
+
+        background:#15803d;
+
+    }
+
+    /* =====================================================
+                        FORM CARD
+    ====================================================== */
+
+   /* =====================================================
+                FORM CARD
+===================================================== */
+
+.form-card{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:40px;
+
+    border:1px solid #e5e7eb;
+
+    box-shadow:
+
+        0 8px 30px rgba(15,23,42,.06);
+
+}
+
+/* =====================================================
+                SECTION TITLE
+===================================================== */
+
+.section-title{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#111827;
+
+    margin-bottom:35px;
+
+    padding-bottom:15px;
+
+    border-bottom:2px solid #eef2f7;
+
+}
+    /* =====================================================
+                ERROR MESSAGE
+===================================================== */
+
+.error-message{
+
+    color:#dc2626;
+
+    font-size:13px;
+
+    margin-top:6px;
+
+}
+
+
+
+/* =====================================================
+                INPUT HOVER
+===================================================== */
+
+.form-group input:hover{
+
+    border-color:#2563eb;
+
+}
+
+
+
+/* =====================================================
+                PLACEHOLDER
+===================================================== */
+
+.form-group input::placeholder{
+
+    color:#9ca3af;
+
+}
+
+
+/* =====================================================
+                DISABLED
+===================================================== */
+
+.form-group input:disabled{
+
+    background:#f3f4f6;
+
+    cursor:not-allowed;
+
+}
+/* =====================================================
+                FORM GRID
+===================================================== */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(280px,1fr));
+
+    gap:25px;
+
+    margin-top:10px;
+
+}
+
+
+
+/* =====================================================
+                FORM GROUP
+===================================================== */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.form-group label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#374151;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* =====================================================
+                INPUTS
+===================================================== */
+
+.form-group input,
+
+.form-group select{
+
+    width:100%;
+
+    height:50px;
+
+    padding:0 16px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:12px;
+
+    background:#fafafa;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.form-group input:focus,
+
+.form-group select:focus{
+
+    background:#ffffff;
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.10);
+
+}
+
+/* =====================================================
+                CHECKBOX
+===================================================== */
+
+.checkbox-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    height:48px;
+
+}
+
+.checkbox-wrapper input{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+
+
+/* =====================================================
+                FORM BUTTONS
+===================================================== */
+
+.form-actions{
+
+    margin-top:40px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+}
+
+.reset-btn{
+
+    background:#f59e0b;
+
+    border:none;
+
+    cursor:pointer;
+
+}
+
+.reset-btn:hover{
+
+    background:#d97706;
+
+}
+
+
+
+/* =====================================================
+                RESPONSIVE
+===================================================== */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:20px;
+
+    }
+
+    .page-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .form-actions{
+
+        flex-direction:column;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+}
+/* =====================================================
+                FORM HEADER
+===================================================== */
+
+.form-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding-bottom:25px;
+
+    margin-bottom:30px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+.form-header h2{
+
+    font-size:24px;
+
+    color:#111827;
+
+    margin-bottom:6px;
+
+}
+
+.form-header p{
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+.form-icon{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:15px;
+
+    background:#eff6ff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.form-icon i{
+
+    font-size:28px;
+
+    color:#2563eb;
+
+}
+    </style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+                    PAGE HEADER
+====================================================== -->
+
+<div class="page-header">
+
+    <div class="page-title">
+
+        <h1>
+
+            Add Supplier
+
+        </h1>
+
+        <p>
+
+            Create a new supplier for your inventory management system.
+
+        </p>
+
+    </div>
+
+    <div class="page-actions">
+
+        <a
+            href="{% url 'suppliers:supplier_list' %}"
+            class="btn back-btn"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back
+
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+                    FORM
+====================================================== -->
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="form-card">
+
+    <!-- =====================================================
+                FORM HEADER
+====================================================== -->
+
+<div class="form-header">
+
+    <div>
+
+        <h2>
+
+            Supplier Information
+
+        </h2>
+
+        <p>
+
+            Fill in the supplier details below.
+
+        </p>
+
+    </div>
+
+    <div class="form-icon">
+
+        <i class="fa-solid fa-truck"></i>
+
+    </div>
+
+</div>
+
+     <!-- =====================================================
+                SUPPLIER DETAILS
+====================================================== -->
+
+<div class="form-grid">
+
+    <!-- Supplier Code -->
+
+    <div class="form-group">
+
+        <label>
+
+            Supplier Code
+
+        </label>
+
+        {{ form.supplier_code }}
+
+{% if form.supplier_code.errors %}
+
+<div class="error-message">
+
+    {{ form.supplier_code.errors }}
+
+</div>
+
+{% endif %}
+
+    </div>
+
+
+
+    <!-- Supplier Name -->
+
+    <div class="form-group">
+
+        <label>
+
+            Supplier Name
+
+        </label>
+
+        {{ form.name.as_widget }}
+
+    </div>
+
+
+
+    <!-- Company Name -->
+
+    <div class="form-group">
+
+        <label>
+
+            Company Name
+
+        </label>
+
+        {{ form.company_name }}
+
+    </div>
+
+
+
+    <!-- Phone -->
+
+    <div class="form-group">
+
+        <label>
+
+            Phone Number
+
+        </label>
+
+        {{ form.phone }}
+
+    </div>
+
+
+
+    <!-- Email -->
+
+    <div class="form-group">
+
+        <label>
+
+            Email Address
+
+        </label>
+
+        {{ form.email }}
+
+    </div>
+
+
+
+    <!-- Status -->
+
+    <div class="form-group">
+
+        <label>
+
+            Status
+
+        </label>
+
+        <div class="checkbox-wrapper">
+
+            {{ form.is_active }}
+
+            <span>
+
+                Active Supplier
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+                FORM BUTTONS
+====================================================== -->
+
+<div class="form-actions">
+
+
+    <button
+
+        type="submit"
+
+        class="btn save-btn"
+
+    >
+
+        <i class="fa-solid fa-floppy-disk"></i>
+
+        Save Supplier
+
+    </button>
+
+</div>
+
+    </div>
+
+</form>
+
+<script>
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    function(){
+
+        console.log(
+
+            "Supplier Form Loaded"
+
+        );
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,116 +1,195 @@
-{% extends "inventory/inventory_base.html" %}
+{% extends "base/base.html" %}
+
+{% load static %}
 
 {% block title %}
 Inventory Dashboard
 {% endblock %}
 
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'inventory/css/dashboard.css' %}"
+>
+
+{% endblock %}
+
 {% block content %}
 
-<div class="dashboard">
+<div class="inventory-dashboard">
 
-    <!-- =====================================
-                OVERVIEW
-    ====================================== -->
+    <!-- =====================================================
+                        PAGE HEADER
+    ====================================================== -->
+
+    <div class="page-header">
+
+        <div class="page-title">
+
+            <h1>
+
+                Inventory Dashboard
+
+            </h1>
+
+            <p>
+
+                Manage products, categories, warehouses and inventory operations.
+
+            </p>
+
+        </div>
+
+        <div class="header-actions">
+
+            <a
+
+                href="{% url 'inventory:product_create' %}"
+
+                class="btn btn-primary"
+
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Product
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                        DASHBOARD CARDS
+    ====================================================== -->
 
     <div class="stats-grid">
+
+        <!-- ==========================================
+                    TOTAL PRODUCTS
+        =========================================== -->
 
         <div class="stat-card">
 
             <div class="stat-icon blue">
+
                 <i class="fa-solid fa-box"></i>
+
             </div>
 
             <div class="stat-content">
-                <span>Total Products</span>
-                <h2>{{ total_products }}</h2>
+
+                <span>
+
+                    Total Products
+
+                </span>
+
+                <h2>
+
+                    {{ total_products|default:"0" }}
+
+                </h2>
+
             </div>
 
         </div>
+
+
+
+        <!-- ==========================================
+                    CATEGORIES
+        =========================================== -->
 
         <div class="stat-card">
 
             <div class="stat-icon green">
+
                 <i class="fa-solid fa-layer-group"></i>
+
             </div>
 
             <div class="stat-content">
-                <span>Categories</span>
-                <h2>{{ total_categories }}</h2>
+
+                <span>
+
+                    Categories
+
+                </span>
+
+                <h2>
+
+                    {{ total_categories|default:"0" }}
+
+                </h2>
+
             </div>
 
         </div>
+
+
+
+        <!-- ==========================================
+                    WAREHOUSES
+        =========================================== -->
 
         <div class="stat-card">
 
             <div class="stat-icon orange">
+
                 <i class="fa-solid fa-warehouse"></i>
+
             </div>
 
             <div class="stat-content">
-                <span>Warehouses</span>
-                <h2>{{ total_warehouses }}</h2>
+
+                <span>
+
+                    Warehouses
+
+                </span>
+
+                <h2>
+
+                    {{ total_warehouses|default:"0" }}
+
+                </h2>
+
             </div>
 
         </div>
+
+
+
+        <!-- ==========================================
+                    LOW STOCK
+        =========================================== -->
 
         <div class="stat-card">
 
             <div class="stat-icon red">
+
                 <i class="fa-solid fa-triangle-exclamation"></i>
+
             </div>
 
             <div class="stat-content">
-                <span>Low Stock</span>
-                <h2>{{ low_stock_count }}</h2>
-            </div>
 
-        </div>
+                <span>
 
-    </div>
+                    Low Stock
 
+                </span>
 
+                <h2>
 
-    <!-- =====================================
-                QUICK ACCESS
-    ====================================== -->
+                    {{ low_stock_count|default:"0" }}
 
-    <div class="dashboard-card">
-
-        <div class="card-header">
-
-            <h2>Quick Access</h2>
-
-        </div>
-
-        <div class="card-body">
-
-            <div class="quick-grid">
-
-                <a href="{% url 'inventory:product_create' %}"class="quick-card">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Add Product</span>
-                </a>
-
-                <a href="{% url 'inventory:category_create' %}" class="quick-card">
-                    <i class="fa-solid fa-folder-plus"></i>
-                    <span>Add Category</span>
-                </a> 
-
-                 <a href="{% url 'inventory:warehouse_list' %}"
-                 class="quick-card">
-                    <i class="fa-solid fa-warehouse"></i>
-                    <span>Warehouse</span>
-                </a> 
-
-                <a href="{% url 'inventory:stock_list' %}" class="quick-card">
-                    <i class="fa-solid fa-cubes"></i>
-                    <span>Stock</span>
-                </a>
-
-                <a href="{% url 'inventory:stock_movement_list' %}" class="quick-card">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span>Movements</span>
-                </a>
+                </h2>
 
             </div>
 
@@ -120,150 +199,524 @@ Inventory Dashboard
 
 
 
-    <div class="dashboard-grid">
+ <!-- =====================================================
+                INVENTORY APPLICATIONS
+====================================================== -->
 
-        <!-- Recent Products -->
+<div class="applications-section">
 
-        <section class="dashboard-card">
+    <div class="section-header">
 
-            <div class="card-header">
+        <h2>
 
-                <h2>Recent Products</h2>
+            Inventory Applications
 
-            </div>
+        </h2>
 
-            <div class="card-body">
+        <p>
 
-                {% if recent_products %}
+            Quick access to all inventory management modules.
 
-                <div class="table-responsive">
+        </p>
 
-                    <table class="dashboard-table">
+    </div>
 
-                        <thead>
+    <div class="application-grid">
 
-                            <tr>
+        <!-- ==========================================
+                    PRODUCT LIST
+        =========================================== -->
 
-                                <th>SKU</th>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Brand</th>
+        <a
 
-                            </tr>
+            href="{% url 'inventory:product_list' %}"
 
-                        </thead>
+            class="application-card"
 
-                        <tbody>
+        >
 
-                            {% for product in recent_products %}
+            <div class="application-icon blue">
 
-                            <tr>
-
-                                <td>{{ product.sku }}</td>
-
-                                <td>{{ product.name }}</td>
-
-                                <td>{{ product.category.name }}</td>
-
-                                <td>{{ product.brand.name }}</td>
-
-                            </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-                {% else %}
-
-                <div class="empty-state">
-
-                    <i class="fa-solid fa-box-open"></i>
-
-                    <h3>No Products Found</h3>
-
-                    <p>Add your first product.</p>
-
-                </div>
-
-                {% endif %}
+                <i class="fa-solid fa-box"></i>
 
             </div>
 
-        </section>
+            <h3>
+
+                Products
+
+            </h3>
+
+            <p>
+
+                View and manage all products.
+
+            </p>
+
+        </a>
 
 
 
-        <!-- Low Stock -->
+        <!-- ==========================================
+                    ADD PRODUCT
+        =========================================== -->
 
-        <section class="dashboard-card">
+        <a
 
-            <div class="card-header">
+            href="{% url 'inventory:product_create' %}"
 
-                <h2>Low Stock Alerts</h2>
+            class="application-card"
 
-            </div>
+        >
 
-            <div class="card-body">
+            <div class="application-icon green">
 
-                {% if low_stock_products %}
-
-                <div class="activity-list">
-
-                    {% for stock in low_stock_products %}
-
-                    <div class="activity-item">
-
-                        <div class="activity-icon">
-
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-
-                        </div>
-
-                        <div class="activity-details">
-
-                            <h4>{{ stock.product.name }}</h4>
-
-                            <p>{{ stock.warehouse.name }}</p>
-
-                            <small>
-
-                                Remaining Stock :
-                                {{ stock.available_quantity }}
-
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                    {% endfor %}
-
-                </div>
-
-                {% else %}
-
-                <div class="empty-state">
-
-                    <i class="fa-solid fa-circle-check"></i>
-
-                    <h3>Great!</h3>
-
-                    <p>No low stock products found.</p>
-
-                </div>
-
-                {% endif %}
+                <i class="fa-solid fa-plus"></i>
 
             </div>
 
-        </section>
+            <h3>
+
+                Add Product
+
+            </h3>
+
+            <p>
+
+                Register a new product.
+
+            </p>
+
+        </a>
+
+
+
+        <!-- ==========================================
+                    CATEGORIES
+        =========================================== -->
+
+        <a
+
+            href="{% url 'inventory:category_list' %}"
+
+            class="application-card"
+
+        >
+
+            <div class="application-icon orange">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+            </div>
+
+            <h3>
+
+                Categories
+
+            </h3>
+
+            <p>
+
+                Manage product categories.
+
+            </p>
+
+        </a>
+
+
+
+        <!-- ==========================================
+                    WAREHOUSES
+        =========================================== -->
+
+        <a
+
+            href="{% url 'inventory:warehouse_list' %}"
+
+            class="application-card"
+
+        >
+
+            <div class="application-icon red">
+
+                <i class="fa-solid fa-warehouse"></i>
+
+            </div>
+
+            <h3>
+
+                Warehouses
+
+            </h3>
+
+            <p>
+
+                Manage warehouse locations.
+
+            </p>
+
+        </a>
+
+
+
+        <!-- ==========================================
+                    STOCK
+        =========================================== -->
+
+        <a
+
+            href="{% url 'inventory:stock_list' %}"
+
+            class="application-card"
+
+        >
+
+            <div class="application-icon blue">
+
+                <i class="fa-solid fa-cubes"></i>
+
+            </div>
+
+            <h3>
+
+                Stock
+
+            </h3>
+
+            <p>
+
+                View current inventory stock.
+
+            </p>
+
+        </a>
+
+
+
+        <!-- ==========================================
+                STOCK MOVEMENTS
+        =========================================== -->
+
+        <a
+
+            href="{% url 'inventory:stock_movement_list' %}"
+
+            class="application-card"
+
+        >
+
+            <div class="application-icon green">
+
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+
+            </div>
+
+            <h3>
+
+                Stock Movements
+
+            </h3>
+
+            <p>
+
+                Track inventory movements.
+
+            </p>
+
+        </a>
+
+
+
+        <!-- ==========================================
+                    UNITS
+        =========================================== -->
+
+        <a
+
+            href="{% url 'inventory:unit_list' %}"
+
+            class="application-card"
+
+        >
+
+            <div class="application-icon orange">
+
+                <i class="fa-solid fa-ruler"></i>
+
+            </div>
+
+            <h3>
+
+                Units
+
+            </h3>
+
+            <p>
+
+                Manage measurement units.
+
+            </p>
+
+        </a>
 
     </div>
 
 </div>
+
+
+
+  <!-- =====================================================
+                RECENT PRODUCTS
+====================================================== -->
+
+<div class="recent-products-section">
+
+    <div class="section-header">
+
+        <h2>
+
+            Recent Products
+
+        </h2>
+
+        <a
+
+            href="{% url 'inventory:product_list' %}"
+
+            class="view-all"
+
+        >
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="dashboard-card">
+
+        {% if recent_products %}
+
+        <div class="table-responsive">
+
+            <table class="dashboard-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+
+                            SKU
+
+                        </th>
+
+                        <th>
+
+                            Product
+
+                        </th>
+
+                        <th>
+
+                            Category
+
+                        </th>
+
+                        <th>
+
+                            Brand
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for product in recent_products %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ product.sku }}
+
+                        </td>
+
+                        <td>
+
+                            {{ product.name }}
+
+                        </td>
+
+                        <td>
+
+                            {{ product.category.name }}
+
+                        </td>
+
+                        <td>
+
+                            {{ product.brand.name }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-box-open"></i>
+
+            <h3>
+
+                No Products Found
+
+            </h3>
+
+            <p>
+
+                Add your first product to start managing inventory.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+
+    <!-- =====================================================
+                    LOW STOCK ALERTS
+    ====================================================== -->
+
+    <!-- =====================================================
+                LOW STOCK ALERTS
+====================================================== -->
+
+<div class="low-stock-section">
+
+    <div class="section-header">
+
+        <h2>
+
+            Low Stock Alerts
+
+        </h2>
+
+        <a
+
+            href="{% url 'inventory:stock_list' %}"
+
+            class="view-all"
+
+        >
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="dashboard-card">
+
+        {% if low_stock_products %}
+
+        <div class="activity-list">
+
+            {% for stock in low_stock_products %}
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                </div>
+
+                <div class="activity-content">
+
+                    <h4>
+
+                        {{ stock.product.name }}
+
+                    </h4>
+
+                    <p>
+
+                        {{ stock.warehouse.name }}
+
+                    </p>
+
+                    <small>
+
+                        Remaining Stock :
+
+                        {{ stock.available_quantity }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <h3>
+
+                Great!
+
+            </h3>
+
+            <p>
+
+                No low stock products found.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+
+<script
+
+    src="{% static 'inventory/js/dashboard.js' %}"
+
+></script>
 
 {% endblock %}

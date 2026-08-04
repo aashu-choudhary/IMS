@@ -1,0 +1,843 @@
+/* =====================================================
+                        RESET
+===================================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    font-family:"Segoe UI",sans-serif;
+
+    background:#f5f7fb;
+
+    color:#1f2937;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+
+
+/* =====================================================
+                DASHBOARD CONTAINER
+===================================================== */
+
+.inventory-dashboard{
+
+    width:100%;
+
+}
+
+
+
+/* =====================================================
+                    PAGE HEADER
+===================================================== */
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+    margin-bottom:35px;
+
+}
+
+.page-title h1{
+
+    font-size:34px;
+
+    color:#111827;
+
+    margin-bottom:8px;
+
+    font-weight:700;
+
+}
+
+.page-title p{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+
+
+/* =====================================================
+                HEADER ACTIONS
+===================================================== */
+
+.header-actions{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+
+
+/* =====================================================
+                    BUTTONS
+===================================================== */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-primary{
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+}
+
+.btn-primary:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+
+/* =====================================================
+                SECTION HEADER
+===================================================== */
+
+.section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:22px;
+
+}
+
+.section-header h2{
+
+    font-size:24px;
+
+    color:#111827;
+
+    font-weight:700;
+
+}
+
+.section-header p{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+
+
+/* =====================================================
+                    VIEW ALL
+===================================================== */
+
+.view-all{
+
+    color:#2563eb;
+
+    font-weight:600;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.view-all:hover{
+
+    color:#1d4ed8;
+
+}
+/* =====================================================
+                STATISTICS GRID
+===================================================== */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+
+}
+
+
+
+/* =====================================================
+                STAT CARD
+===================================================== */
+
+.stat-card{
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    padding:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 28px rgba(0,0,0,.10);
+
+}
+
+
+
+/* =====================================================
+                STAT ICON
+===================================================== */
+
+.stat-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#ffffff;
+
+    font-size:28px;
+
+}
+
+
+
+/* =====================================================
+                ICON COLORS
+===================================================== */
+
+.blue{
+
+    background:#2563eb;
+
+}
+
+.green{
+
+    background:#16a34a;
+
+}
+
+.orange{
+
+    background:#f59e0b;
+
+}
+
+.red{
+
+    background:#dc2626;
+
+}
+
+.purple{
+
+    background:#7c3aed;
+
+}
+
+
+
+/* =====================================================
+                STAT CONTENT
+===================================================== */
+
+.stat-content{
+
+    flex:1;
+
+}
+
+.stat-content span{
+
+    display:block;
+
+    color:#6b7280;
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+}
+
+.stat-content h2{
+
+    font-size:30px;
+
+    color:#111827;
+
+    font-weight:700;
+
+}
+/* =====================================================
+                APPLICATION SECTION
+===================================================== */
+
+.applications-section{
+
+    margin-bottom:35px;
+
+}
+
+
+
+/* =====================================================
+                APPLICATION GRID
+===================================================== */
+
+.application-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+}
+
+
+
+/* =====================================================
+                APPLICATION CARD
+===================================================== */
+
+.application-card{
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    padding:30px 25px;
+
+    text-align:center;
+
+    color:#111827;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.application-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 12px 28px rgba(0,0,0,.10);
+
+}
+
+
+
+/* =====================================================
+                APPLICATION ICON
+===================================================== */
+
+.application-icon{
+
+    width:80px;
+
+    height:80px;
+
+    margin:0 auto 20px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:34px;
+
+    color:#ffffff;
+
+}
+
+
+
+/* =====================================================
+                APPLICATION TITLE
+===================================================== */
+
+.application-card h3{
+
+    font-size:22px;
+
+    color:#111827;
+
+    margin-bottom:12px;
+
+}
+
+
+
+/* =====================================================
+                APPLICATION DESCRIPTION
+===================================================== */
+
+.application-card p{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+}
+/* =====================================================
+                DASHBOARD CARD
+===================================================== */
+
+.dashboard-card{
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    margin-bottom:35px;
+
+}
+
+
+
+/* =====================================================
+                TABLE RESPONSIVE
+===================================================== */
+
+.table-responsive{
+
+    overflow-x:auto;
+
+}
+
+
+
+/* =====================================================
+                DASHBOARD TABLE
+===================================================== */
+
+.dashboard-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.dashboard-table thead{
+
+    background:#f8fafc;
+
+}
+
+.dashboard-table th{
+
+    padding:16px 18px;
+
+    text-align:left;
+
+    color:#374151;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+.dashboard-table td{
+
+    padding:16px 18px;
+
+    font-size:14px;
+
+    border-bottom:1px solid #f1f5f9;
+
+}
+
+.dashboard-table tbody tr{
+
+    transition:.25s;
+
+}
+
+.dashboard-table tbody tr:hover{
+
+    background:#f8fafc;
+
+}
+
+
+
+/* =====================================================
+                RECENT PRODUCTS
+===================================================== */
+
+.recent-products-section{
+
+    margin-bottom:35px;
+
+}
+
+
+
+/* =====================================================
+                LOW STOCK
+===================================================== */
+
+.low-stock-section{
+
+    margin-bottom:35px;
+
+}
+
+.activity-list{
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+
+    padding:25px;
+
+}
+
+.activity-item{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:18px;
+
+    padding:18px 0;
+
+    border-bottom:1px solid #eef2f7;
+
+}
+
+.activity-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.activity-icon{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:14px;
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:18px;
+
+    flex-shrink:0;
+
+}
+
+.activity-content{
+
+    flex:1;
+
+}
+
+.activity-content h4{
+
+    color:#111827;
+
+    font-size:17px;
+
+    margin-bottom:6px;
+
+}
+
+.activity-content p{
+
+    color:#6b7280;
+
+    font-size:14px;
+
+    margin-bottom:6px;
+
+}
+
+.activity-content small{
+
+    color:#9ca3af;
+
+    font-size:13px;
+
+}
+/* =====================================================
+                    EMPTY STATE
+===================================================== */
+
+.empty-state{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:60px 30px;
+
+}
+
+.empty-state i{
+
+    font-size:60px;
+
+    color:#cbd5e1;
+
+    margin-bottom:20px;
+
+}
+
+.empty-state h3{
+
+    font-size:24px;
+
+    color:#111827;
+
+    margin-bottom:12px;
+
+}
+
+.empty-state p{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+}
+
+
+
+/* =====================================================
+                    SCROLLBAR
+===================================================== */
+
+.table-responsive::-webkit-scrollbar{
+
+    height:8px;
+
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:20px;
+
+}
+
+.table-responsive::-webkit-scrollbar-track{
+
+    background:#f8fafc;
+
+}
+
+
+
+/* =====================================================
+                    RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+    .application-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+
+@media(max-width:992px){
+
+    .page-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .header-actions{
+
+        width:100%;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+}
+
+
+
+@media(max-width:768px){
+
+    .stats-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .application-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .page-title h1{
+
+        font-size:28px;
+
+    }
+
+    .dashboard-table{
+
+        min-width:700px;
+
+    }
+
+}
+
+
+
+@media(max-width:480px){
+
+    .stat-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .stat-icon{
+
+        margin-bottom:15px;
+
+    }
+
+    .activity-item{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        align-items:center;
+
+    }
+
+}
